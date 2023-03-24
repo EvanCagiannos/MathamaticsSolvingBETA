@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sine Law Solver</title>
+	<script type="text/javascript">
+		function solveSineLaw() {
+			var side_a = document.getElementById("side_a").value;
+			var angle_A = document.getElementById("angle_A").value;
+			var angle_B = document.getElementById("angle_B").value;
+
+			var side_b, side_c;
+			if (side_a && angle_A && angle_B) {
+				side_b, side_c = solve_sine_law(side_a, angle_A, angle_B);
+				document.getElementById("side_b").value = side_b.toFixed(2);
+				document.getElementById("side_c").value = side_c.toFixed(2);
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>Sine Law Solver</h1>
+	<p>Enter the length of one side and the measures of two angles of a triangle to solve for the lengths of the other two sides using the Sine Law:</p>
+	<form>
+		<label for="side_a">Side a:</label>
+		<input type="number" id="side_a" name="side_a" min="0" step="any">
+		<br>
+		<label for="angle_A">Angle A:</label>
+		<input type="number" id="angle_A" name="angle_A" min="0" max="180" step="any">
+		<br>
+		<label for="angle_B">Angle B:</label>
+		<input type="number" id="angle_B" name="angle_B" min="0" max="180" step="any">
+		<br>
+		<input type="button" value="Solve" onclick="solveSineLaw()">
+	</form>
+	<p>The lengths of the other two sides are:</p>
+	<ul>
+		<li>Side b: <input type="number" id="side_b" name="side_b" disabled></li>
+		<li>Side c: <input type="number" id="side_c" name="side_c" disabled></li>
+	</ul>
+</body>
+</html>
