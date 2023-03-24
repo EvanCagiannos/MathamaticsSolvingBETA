@@ -1,0 +1,54 @@
+# Lint all files
+lint:
+  # Run linting on push, pull_request, and schedule
+  # Note: Schedule runs every day at 00:00 UTC
+  on: [push, pull_request, schedule]
+  jobs:
+    # Enable Super-Linter
+    super-linter:
+      name: Lint code
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+
+        - name: Run Super-Linter
+          uses: github/super-linter@v4
+          with:
+            # Disable commenting back on the Pull Request
+            # Leave comments on Pull Requests
+            # Default: "true"
+            disable-comment: "false"
+            # Customise which output reporters to use
+            # Default: "github-pr-review"
+            # Options: [github-pr-review, github-actions-annotations, codeclimate, junit]
+            report-format: "github-pr-review"
+            # Customise the level of lint messages to display
+            # Default: "all"
+            # Options: [error, warning, notice]
+            log-level: "warning"
+            # Override the default linter configuration
+            # See https://github.com/github/super-linter/blob/v4/docs/linter-rules.md for a list of supported linters and their configuration options
+            # You can override a linter's rules by setting the value to `warn` or `error`
+            # For example, to disable line length checks for Python:
+            #   pylint: "--disable=line-too-long"
+            # To enable additional rules for PHP Code Sniffer:
+            #   phpcs: "--standard=PSR2,MyStandard"
+            # Note that some linters may require additional configuration files in the repository to be correctly configured
+            linter-config: |
+              # HTML Linting
+              html:
+                enabled: true
+                args: >
+                  --config .htmlhintrc
+              # Python Linting
+              python:
+                enabled: true
+                args: >
+                  --max-line-length=80
+                  --enable=E,W
+              # JavaScript Linting
+              javascript:
+                enabled: true
+                args: >
+                  --strict
